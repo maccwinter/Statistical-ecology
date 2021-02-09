@@ -24,7 +24,15 @@ ncol(dune)
 nrow(dune)
 #nrow = 20 
 siterichness <- function(x){apply(x[,]>0,1,sum)}
-siterichness(dune)
+strich.dune <- siterichness(dune)
+strich.dune
+?as.data.frame
+s.d.df <- as.data.frame(strich.dune)
+s.d.df
+colnames(s.d.df) <- 'richness'
+s.d.df
+s.d.df$site <-rownames(s.d.df)
+s.d.df
 #above is my function using apply to calculate species richness 
 #5a -----
 cv <- function(x,y){apply(x,y,sd)/apply(x,y,mean)}
@@ -36,5 +44,18 @@ dunecv
 #cv of abundance accross all sites for the Trifrepe species is: 0.8082749
 #6 ----
 library(ggplot2)
+Richness <- ggplot()+
+  geom_point(aes(x=s.d.df$site, y=s.d.df$richness), size=2, shape=21, col="black", stroke=1, alpha=0.5) +
+  geom_abline(intercept = 0, slope = 1) +
+  geom_vline(xintercept=0.05, lty=2, col="gray50") +
+  geom_hline(yintercept=0.05, lty=2, col="gray50") +
+  scale_x_continuous(name = "Hommel p-values") +
+  scale_y_continuous(name = "Holm p-values") +
+  mytheme
 
-
+               
+               
+               
+               
+               
+               
